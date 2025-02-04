@@ -27,6 +27,7 @@ export const analyzeAdPerformance = async (data) => {
     `;
 
     const response = await model.invoke(prompt);
+
     return extractAdAnalysisData(response.content); // ✅ Always returns valid JSON
 };
 

@@ -19,6 +19,8 @@ const AnalyzeFile = () => {
     useEffect(() => {
         if (!filePath) return;
 
+        console.log("Analyzing file:", filePath);
+
         axios.post("http://localhost:5000/analyze", { filePath })
             .then(response => {
                 const data = response.data.analysis;
