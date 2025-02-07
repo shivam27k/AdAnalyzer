@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const UploadFile = () => {
     const [file, setFile] = useState(null);
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
     const handleUpload = async () => {
         if (!file) return alert("Select a file!");
@@ -12,7 +13,7 @@ const UploadFile = () => {
         formData.append("file", file);
 
         try {
-            const response = await axios.post("http://localhost:5000/upload", formData, {
+            const response = await axios.post(`${API_BASE_URL}/upload`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 

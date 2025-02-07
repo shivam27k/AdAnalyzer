@@ -7,6 +7,7 @@ const AnalyzeFile = () => {
     const { filePath } = useParams();
     const [analysis, setAnalysis] = useState(null);
     const [error, setError] = useState(null);
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
     const cleanJSON = (data) => {
         try {
@@ -21,7 +22,7 @@ const AnalyzeFile = () => {
         if (!filePath) return;
         if (analysis) return;
 
-        axios.post("http://localhost:5000/analyze", { filePath })
+        axios.post(`${API_BASE_URL}/analyze`, { filePath })
             .then(response => {
                 const data = response.data.analysis;
                 setAnalysis(typeof data === "object" ? data : cleanJSON(data));
