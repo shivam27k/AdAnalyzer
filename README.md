@@ -2,19 +2,23 @@
 
 ## Overview
 
-The Ad Performance Analyzer is a web application that allows users to upload advertisement data in CSV format. The backend processes the data using Gemini AI and provides an analysis of keyword performance. The frontend provides an intuitive interface for file upload, analysis, and insights visualization.
+The Ad Performance Analyzer is a web application designed to analyze advertisement performance by processing CSV data containing keyword metrics. Users can upload CSV files, and the backend leverages Gemini AI to extract insights, identify high- and low-performing keywords, and suggest optimizations. The frontend provides a user-friendly interface for uploading files and viewing results.
+
+## Architecture Diagram
+
+(Insert a simple diagram illustrating the system architecture, showing interactions between the frontend, backend, LangGraph agent, and LLM API.)
 
 ## Tech Stack
 
-Backend: Node.js (Express, ES Modules)
+-   Backend: Node.js (Express, ES Modules)
 
-Frontend: React (Vite, React Router, Axios)
+-   Frontend: React (Vite, React Router, Axios)
 
-LLM Framework: Google Gemini AI via @google/generative-ai
+-   LLM Framework: Google Gemini AI via @google/generative-ai
 
-Hosting: Any free platform
+-   Hosting: Any free platform
 
-Containerization: Docker (Optional)
+-   Containerization: Docker (Optional)
 
 ## Folder Structure
 
@@ -76,17 +80,17 @@ Upload CSV File
 
 `POST /upload`
 
-Request: FormData containing a CSV file
+-   Request: FormData containing a CSV file
 
-Response: { message: 'File uploaded successfully', filePath: 'uploads/file.csv' }
+-   Response: `{ message: 'File uploaded successfully', filePath: 'uploads/file.csv' }`
 
 Analyze Ad Data
 
 `POST /analyze`
 
-Request: { filePath: 'uploads/file.csv' }
+-   Request: `{ filePath: 'uploads/file.csv' }`
 
-Response: { message: 'Analysis complete', analysis: <analysis result> }
+-   Response: `{ message: 'Analysis complete', analysis: <analysis result> }`
 
 ## Docker
 
@@ -95,3 +99,15 @@ To run with docker open the docker desktop in windows and then run the following
 ```
 docker-compose -f Docker/docker-compose.yml up --build
 ```
+
+## Assumptions
+
+-   The uploaded CSV file contains structured advertisement data with relevant keyword performance metrics.
+
+-   The target audience consists of digital marketers and advertising professionals looking to optimize campaigns.
+
+-   The analysis relies on Gemini AI for processing and insights generation.
+
+-   Users require an intuitive and minimalistic UI for interacting with the system.
+
+-   The application will be hosted on freely available platforms for deployment.
