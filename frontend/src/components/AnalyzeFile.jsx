@@ -41,12 +41,6 @@ const AnalyzeFile = () => {
     const highPerformanceKeywords = analysis?.analysis?.keyword_analysis?.high_performers
     const keywordActions = analysis?.keywordActions
 
-    console.log('performance lund', performance);
-    console.log('suggestions lund', suggestions);
-    console.log('lowPerformanceKeywords lund', lowPerformanceKeywords);
-    console.log('highPerformanceKeywords lund', highPerformanceKeywords);
-    console.log('keywordActions lund', keywordActions);
-
     return (
         <div className="flex flex-col p-4 md:p-5 lg:p-10 gap-4 md:gap-10 justify-between md:flex-row">
             {error ? (
