@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import AnalysisResults from "./AnalysisResults";
 
 const AnalyzeFile = () => {
     const { filePath } = useParams();
@@ -18,14 +19,13 @@ const AnalyzeFile = () => {
 
     useEffect(() => {
         if (!filePath) return;
-
-        console.log("Analyzing file:", filePath);
+        if (analysis) return;
 
         axios.post("http://localhost:5000/analyze", { filePath })
             .then(response => {
                 const data = response.data.analysis;
                 setAnalysis(typeof data === "object" ? data : cleanJSON(data));
-                console.log('data', data);
+                console.log('data lund', data);
             })
             .catch(error => {
                 console.error("Analysis failed:", error);
@@ -34,17 +34,34 @@ const AnalyzeFile = () => {
 
     }, [filePath]);
 
+    const performance = analysis?.analysis?.performance_summary
+    const suggestions = analysis?.analysis?.suggestions
+    const lowPerformanceKeywords = analysis?.analysis?.keyword_analysis?.low_performers
+    const highPerformanceKeywords = analysis?.analysis?.keyword_analysis?.high_performers
+    const keywordActions = analysis?.keywordActions
+
+    console.log('performance lund', performance);
+    console.log('suggestions lund', suggestions);
+    console.log('lowPerformanceKeywords lund', lowPerformanceKeywords);
+    console.log('highPerformanceKeywords lund', highPerformanceKeywords);
+    console.log('keywordActions lund', keywordActions);
+
     return (
-        <div>
-            <h2>Ad Performance Analysis</h2>
+        <div className="flex flex-col p-4 md:p-5 lg:p-10 gap-4 md:gap-10 justify-between md:flex-row">
             {error ? (
-                <p style={{ color: "red" }}>{error}</p>
+                <p className="text-red-500">{error}</p>
             ) : analysis ? (
-                <pre style={{ background: "#f4f4f4", padding: "10px", borderRadius: "5px", overflowX: "auto" }}>
-                    {JSON.stringify(analysis, null, 2)}
-                </pre>
+                <AnalysisResults
+                    adPerformance={performance} highPerformingKeywords={highPerformanceKeywords}
+                    keywordActions={keywordActions}
+                    lowPerformingKeywords={lowPerformanceKeywords}
+                    suggestions={suggestions}
+                />
             ) : (
-                <p>Analyzing file...</p>
+                <div className="flex flex-col gap-4 w-full p-10 md:gap-6 lg:gap-10">
+                    <p className="text-center text-4xl font-semibold ">Wait while we get the results</p>
+                    <p className="text-center text-xl text-gray-500 animate-blink">Analyzing file...</p>
+                </div>
             )}
         </div>
     );
