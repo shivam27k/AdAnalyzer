@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const UploadFile = () => {
     const [file, setFile] = useState(null);
     const navigate = useNavigate();
+    const [uploading, setUploading] = useState(false)
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
     const handleUpload = async () => {
@@ -13,17 +14,18 @@ const UploadFile = () => {
         formData.append("file", file);
 
         try {
+            setUploading(true)
             const response = await axios.post(`${API_BASE_URL}/upload`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
             const filePath = response.data.filePath;
-            console.log("File uploaded:", filePath);
-
+            setUploading(false)
             // Navigate to Analyze page with filePath
             navigate(`/analyze/${encodeURIComponent(filePath)}`);
         } catch (error) {
             alert("File upload failed!");
+            setUploading(false)
             console.error(error);
         }
     };
@@ -41,8 +43,10 @@ const UploadFile = () => {
                     />
                 </label>
                 {/* i know a button component can be made here */}
-                <button className="border p-3 cursor-pointer text-lg font-bold bg-blue-500 text-white rounded-md" onClick={handleUpload}>
-                    Upload
+                <button className={`border p-3 cursor-pointer text-lg font-bold ${uploading ? 'bg-gray-500' : 'bg-blue-500'} text-white rounded-md`} onClick={uploading ? null : handleUpload}>
+                    {
+                        uploading ? 'Uploading...' : 'Upload'
+                    }
                 </button>
             </div>
             <div className="" >
