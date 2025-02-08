@@ -1,5 +1,7 @@
 # Ad Performance Analyzer
 
+Deployment: https://ad-analyzer.netlify.app/
+
 ## Overview
 
 The Ad Performance Analyzer is a web application designed to analyze advertisement performance by processing CSV data containing keyword metrics. Users can upload CSV files, and the backend leverages Gemini AI to extract insights, identify high- and low-performing keywords, and suggest optimizations. The frontend provides a user-friendly interface for uploading files and viewing results.
